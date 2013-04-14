@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Rameau::PitchClass do
-  def c; build(:pitch_class, natural_degree: 0); end
-  def d; build(:pitch_class, natural_degree: 2); end
+  let(:c) { build(:pitch_class, natural_degree: 0) }
+  let(:d) { build(:pitch_class, natural_degree: 2) }
 
   describe 'validations' do
     it 'should only allow the natural pitch degrees between 0 and 11 (with 0 = c)' do
@@ -45,7 +45,7 @@ describe Rameau::PitchClass do
 
   it 'should recognize enharmonic equivalence' do
     expect(c.sharp).to eq d.flat
-    expect(c.natural.sharp.sharp).to eq d.natural
+    expect(c.sharp.sharp).to eq d.natural
   end
 
   describe '#to_s' do

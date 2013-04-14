@@ -15,9 +15,10 @@ module Rameau
     validates :natural_degree, inclusion: { in: PITCH_CLASS_MAP.keys }
     attr_accessor :natural_degree
 
-    def initialize(natural_degree)
+    def initialize(natural_degree, init_sharp=0, init_flat=0)
       @natural_degree = natural_degree
-      natural
+      @sharp = init_sharp
+      @flat = init_flat
     end
 
     def <=>(other_pitch_class)
@@ -46,18 +47,15 @@ module Rameau
     end
 
     def natural
-      @sharp = @flat = 0
-      self
+      PitchClass.new(natural_degree, 0, 0)
     end
 
     def sharp
-      @sharp += 1
-      self
+      PitchClass.new(natural_degree, @sharp + 1, @flat)
     end
 
     def flat
-      @flat += 1
-      self
+      PitchClass.new(natural_degree, @sharp, @flat + 1)
     end
   end
 end
