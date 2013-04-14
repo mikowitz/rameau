@@ -25,7 +25,11 @@ module Rameau
     end
 
     def to_i
-      (natural_degree + @sharp - @flat) % 12
+      to_i_for_pitch % 12
+    end
+
+    def to_i_for_pitch
+      natural_degree + @sharp - @flat
     end
 
     def to_s
