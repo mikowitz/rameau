@@ -22,6 +22,12 @@ describe Rameau::Phrase do
     end
   end
 
+  describe '#duration' do
+    it 'should return the correct duration of the entire phrase' do
+      expect(build_phrase(c4_2, r_8, c4_2).duration).to eq 1.125 
+    end
+  end
+
   def build_phrase(*args)
     Rameau::Phrase.new(args)
   end
