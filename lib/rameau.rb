@@ -2,6 +2,8 @@ require 'active_model'
 Dir[File.dirname(__FILE__) + '/rameau/**/*.rb'].each {|file| require file}
 
 module Rameau
+  NonComposeableElement = Class.new(ArgumentError)
+
   PitchClass::PITCH_CLASS_MAP.each do |degree, name|
     define_method(name) do
       PitchClass.new(degree)
