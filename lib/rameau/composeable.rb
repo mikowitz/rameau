@@ -9,7 +9,7 @@ module Rameau
 
     def |(other)
       return self unless other.respond_to?(:composeable?)
-      Piece.new(self, other)
+      Voices.new(self, other)
     end
   end
 end

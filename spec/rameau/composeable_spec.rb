@@ -37,7 +37,7 @@ describe Rameau::Composeable do
       phrase1 = c4_2 + c4_4 + r_8
       phrase2 = c4_4 + r_8 + c4_4
 
-      expect(phrase1 | phrase2).to be_a Rameau::Piece
+      expect(phrase1 | phrase2).to be_a Rameau::Voices
       expect((phrase1 | phrase2).to_s).to eq "c4(0.500) c4(0.250) r(0.125)
 ----------------------------
 c4(0.250) r(0.125) c4(0.250)"
