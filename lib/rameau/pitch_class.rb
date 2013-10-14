@@ -1,61 +1,64 @@
 module Rameau
-  class PitchClass < Base
+  class PitchClass
     include Comparable
-
-    PITCH_CLASS_MAP = {
-      0 => 'c',
-      2 => 'd',
-      4 => 'e',
-      5 => 'f',
-      7 => 'g',
-      9 => 'a',
-      11 => 'b'
+    PITCH_INTEGER_MAP = {
+      0 => 'C',
+      2 => 'D',
+      4 => 'E',
+      5 => 'F',
+      7 => 'G',
+      9 => 'A',
+      11 => 'B'
     }
 
-    validates :natural_degree, inclusion: { in: PITCH_CLASS_MAP.keys }
-    attr_accessor :natural_degree
+    attr_reader :base_pitch_integer, :offset
+    def initialize(base_pitch_integer, offset=0)
+      @base_pitch_integer, @offset = base_pitch_integer, offset
+    end
 
-    def initialize(natural_degree, init_sharp=0, init_flat=0)
-      @natural_degree = natural_degree
-      @sharp = init_sharp
-      @flat = init_flat
+    def diff(other_pitch_class)
+      (other_pitch_class.to_i - self.to_i) % 12
+    end
+
+    def to_i
+      (@base_pitch_integer + @offset) % 12
+    end
+
+    def base_pitch_name
+      PITCH_INTEGER_MAP[@base_pitch_integer]
+    end
+
+    def sharp
+      PitchClass.new(@base_pitch_integer, @offset + 1)
+    end
+
+    def flat
+      PitchClass.new(@base_pitch_integer, @offset - 1)
     end
 
     def <=>(other_pitch_class)
       self.to_i <=> other_pitch_class.to_i
     end
 
-    def to_i
-      to_i_for_pitch % 12
+    def to(other_pitch_class)
+      Interval.between(self, other_pitch_class)
     end
 
-    def to_i_for_pitch
-      natural_degree + @sharp - @flat
+    def down_to(other_pitch_class)
+      other_pitch_class.to(self)
     end
 
-    def to_s
-      PITCH_CLASS_MAP[natural_degree] + accidental_sign
-    end
-
-    def accidental_sign
-      offset = @sharp - @flat
-      case offset <=> 0
-      when 0 then ''
-      when 1 then 's' * offset.abs
-      else        'f' * offset.abs
+    def method_missing(m, *a, &b)
+      interval_name = m.to_s.gsub(/(^|_)./) {|m| m.upcase}.gsub(/_/, '')
+      if Rameau.const_defined?(interval_name)
+        if a.include?(:down)
+          Rameau.const_get(interval_name).down_from(self)
+        else
+          Rameau.const_get(interval_name).from(self)
+        end
+      else
+        super
       end
-    end
-
-    def natural
-      PitchClass.new(natural_degree, 0, 0)
-    end
-
-    def sharp
-      PitchClass.new(natural_degree, @sharp + 1, @flat)
-    end
-
-    def flat
-      PitchClass.new(natural_degree, @sharp, @flat + 1)
     end
   end
 end
