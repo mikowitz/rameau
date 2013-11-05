@@ -47,6 +47,7 @@ These can be combined to transpose intervals:
 
 * Support for at least basic triads
 * A REPL-based quiz-like interface for practicing
+* Better `#inspect`/`#to_s` values for pitch classes and intervals
 
 ## Contributing
 
