@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Rameau::VERSION
   spec.authors       = ["Michael Berkowitz"]
   spec.email         = ["michael.berkowitz@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{A small library for exploring basic concepts of music theory.}
+  spec.summary       = %q{A small library for exploring basic concepts of music theory.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
