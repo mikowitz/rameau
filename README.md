@@ -43,9 +43,15 @@ These can be combined to transpose intervals:
     $ C.to(D).from(Ef) == F #=> true
     $ C.to(E).down_from(G) == Ef #= true
 
+### Triads
+
+    $ C.major
+    $ D.minor.first_inversion
+    $ F.augmented.second_inversion
+    $ Af.diminished
+
 ## TODO
 
-* Support for at least basic triads
 * A REPL-based quiz-like interface for practicing
 * Better `#inspect`/`#to_s` values for pitch classes and intervals
 
