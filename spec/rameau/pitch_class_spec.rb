@@ -49,4 +49,14 @@ describe PitchClass do
     expect(E.diminished.notes).to eq [E, G, Bf]
     expect(F.augmented.notes).to eq [F, A, Cs]
   end
+
+  describe '#inspect' do
+    it 'should return a # or b string version' do
+      expect(C.inspect).to eq "C"
+      expect(Fs.inspect).to eq "F#"
+      expect(Af.inspect).to eq "Ab"
+      expect(Cs.sharp.inspect).to eq "Cx"
+      expect(Ef.flat.inspect).to eq "Ebb"
+    end
+  end
 end

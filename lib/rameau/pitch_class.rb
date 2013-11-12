@@ -48,6 +48,19 @@ module Rameau
       other_pitch_class.to(self)
     end
 
+    def inspect
+      pitch_name = PITCH_INTEGER_MAP[base_pitch_integer]
+      accidental = case offset <=> 0
+                   when 0 then ''
+                   when 1 
+                      double, single = offset.divmod(2)
+                      ('x' * double) + ('#' * single)
+                   when -1 then 'b' * offset.abs
+                   end
+
+      "#{pitch_name}#{accidental}"
+    end
+
     def method_missing(m, *a, &b)
       interval_name = m.to_s.gsub(/(^|_)./) {|m| m.upcase}.gsub(/_/, '')
       if Rameau.const_defined?(interval_name)
