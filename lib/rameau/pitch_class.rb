@@ -51,14 +51,23 @@ module Rameau
     def method_missing(m, *a, &b)
       interval_name = m.to_s.gsub(/(^|_)./) {|m| m.upcase}.gsub(/_/, '')
       if Rameau.const_defined?(interval_name)
-        if a.include?(:down)
-          Rameau.const_get(interval_name).down_from(self)
-        else
-          Rameau.const_get(interval_name).from(self)
-        end
+        find_interval(interval_name, a.include?(:down))
+      elsif Rameau::Triad::TYPES.keys.include?(m)
+        construct_triad(m)
       else
         super
       end
     end
+  end
+  
+  private
+
+  def find_interval(interval_name, down)
+    interval = Rameau.const_get(interval_name)
+    down ? interval.down_from(self) : interval.from(self)
+  end
+
+  def construct_triad(type)
+    Triad.new(self, type)
   end
 end

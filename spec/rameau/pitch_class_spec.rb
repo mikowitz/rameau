@@ -42,4 +42,11 @@ describe PitchClass do
     expect(C.minor_sixth).to eq Af
     expect(C.perfect_fourth(:down)).to eq G
   end
+
+  it 'should be able to generate a triad' do
+    expect(C.major.notes).to eq [C, E, G]
+    expect(D.minor.notes).to eq [D, F, A]
+    expect(E.diminished.notes).to eq [E, G, Bf]
+    expect(F.augmented.notes).to eq [F, A, Cs]
+  end
 end

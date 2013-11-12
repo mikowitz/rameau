@@ -12,6 +12,7 @@ module Rameau
   AugmentedFourth = Interval.new(3, 6)
   DiminishedFifth = Interval.new(4, 6)
   PerfectFifth = Interval.new(4, 7)
+  AugmentedFifth = Interval.new(4, 8)
 
   {:Second => [1, 2], :Third => [2, 4],
     :Sixth => [5, 9], :Seventh => [6, 11]}.each do |name, intervals|
